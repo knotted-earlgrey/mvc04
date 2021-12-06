@@ -15,34 +15,56 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- 『name=""』 속성에 매핑 주소를 등록한다. -->
 	<!-- 이 과정에서 Front Controller가 갖고있는 확장자의 형태로 구성한다. -->
 	<!-- 『class=""』속성은 Controller 객체의 클래스 경로 및 이름을 등록한다. -->
-	
+
 	<!-- 19. dispatcher-servlet.xml -->
+
+	<!-- DataSorce 등록 → SimpleDriverDataSource -->
+	<bean id="localDataSource"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass"
+			value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="username" value="scott"></property>
+		<property name="password" value="tiger"></property>
+	</bean>
+
+	<bean id="remoteDataSource"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass"
+			value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url"
+			value="jdbc:oracle:thin:@211.238.142.165:1521:xe"></property>
+		<property name="username" value="scott"></property>
+		<property name="password" value="tiger"></property>
+	</bean>
+
+
+	<!-- DAO 등록 -->
+	<bean id="employeeDAO" class="com.test.mvc.EmployeeDAO">
+		<property name="dataSource" ref="remoteDataSource"></property>
+	</bean>
 	
-	 <!-- DataSorce 등록 → SimpleDriverDataSource -->
-   <bean id="localDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-      <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"></property>
-      <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
-      <property name="username" value="scott"></property>
-      <property name="password" value="tiger"></property>
-   </bean>
-   
-   <bean id="remoteDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-      <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"></property>
-      <property name="url" value="jdbc:oracle:thin:@211.238.142.165:1521:xe"></property>
-      <property name="username" value="scott"></property>
-      <property name="password" value="tiger"></property>
-   </bean>
-   
-   
-   <!-- DAO 등록 -->
-   <bean id="employeeDAO" class="com.test.mvc.EmployeeDAO">
-      <property name="dataSource" ref="remoteDataSource"></property>
-   </bean>
-   
-   
-   <!-- Employee 관련 컨트롤러 등록 -->
-   <bean name="/employeelist.action" class="com.test.mvc.EmployeeListController">
-      <property name="dao" ref="employeeDAO"></property>
-   </bean>
-   
+	
+	<!-- AJAX 관련 Controller 등록 -->
+	<bean name="/ajax.action" class="com.test.mvc.AjaxController">
+		<property name="dao" ref="employeeDAO"></property>
+	</bean>
+
+
+	<!-- Employee 관련 컨트롤러 등록 -->
+	<bean name="/employeelist.action"
+		class="com.test.mvc.EmployeeListController">
+		<property name="dao" ref="employeeDAO"></property>
+	</bean>
+
+	<bean name="/employeeinsertform.action"
+		class="com.test.mvc.EmployeeInsertFormController">
+		<property name="dao" ref="employeeDAO"></property>
+	</bean>
+	
+	
+	
+
+
 </beans>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
@@ -33,7 +34,7 @@
 		
 		<div>
 			<form action="">
-				<input type="button" value="직원 추가" class="btn">
+				<input type="button" value="직원 추가" class="btn" onclick="location.href='employeeinsertform.action'">
 			</form>
 		</div>
 		<br><br>
@@ -89,9 +90,14 @@
 				<td>${employee.regionName }</td>
 				<td>${employee.departmentName }</td>
 				<td>${employee.positionName }</td>
-				<td>${employee.basicPay }</td>
-				<td>${employee.extraPay }</td>
-				<td>${employee.pay }</td>
+				
+				<%-- <td>${employee.basicPay }</td> --%>
+				<td><fmt:formatNumber value="${employee.basicPay }" groupingUsed="true"></fmt:formatNumber></td>
+				<%-- groupingUsed : 숫자 1,000,000처럼 표시하기 --%>
+				<%-- <td>${employee.extraPay }</td> --%>
+				<td><fmt:formatNumber value="${employee.extraPay }" groupingUsed="true"></fmt:formatNumber></td>
+				<%-- <td>${employee.pay }</td> --%>
+				<td><fmt:formatNumber value="${employee.pay }" groupingUsed="true"></fmt:formatNumber></td>
 				<td>${employee.grade==0 ? "관리자" : "일반사원" }</td>
 				<td><button type="button" class="btn">수정</button></td>
 				<td><button type="button" class="btn">삭제</button></td>
