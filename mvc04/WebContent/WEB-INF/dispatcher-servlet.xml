@@ -44,6 +44,15 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<bean id="employeeDAO" class="com.test.mvc.EmployeeDAO">
 		<property name="dataSource" ref="remoteDataSource"></property>
 	</bean>
+	<bean id="regionDAO" class="com.test.mvc.RegionDAO">
+		<property name="dataSource" ref="remoteDataSource"></property>
+	</bean>
+	<bean id="departmentDAO" class="com.test.mvc.DepartmentDAO">
+		<property name="dataSource" ref="remoteDataSource"></property>
+	</bean>
+	<bean id="positionDAO" class="com.test.mvc.PositionDAO">
+		<property name="dataSource" ref="remoteDataSource"></property>
+	</bean>
 	
 	
 	<!-- AJAX 관련 Controller 등록 -->
@@ -62,9 +71,42 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 		class="com.test.mvc.EmployeeInsertFormController">
 		<property name="dao" ref="employeeDAO"></property>
 	</bean>
-	
-	
-	
 
+	<bean name="/employeeinsert.action" class="com.test.mvc.EmployeeInsertController">
+		<property name="dao" ref="employeeDAO"></property>
+	</bean>
+	
+	<bean name="/employeeupdateform.action" class="com.test.mvc.EmployeeUpdateFormController">
+		<property name="employeeDAO" ref="employeeDAO"></property>
+		<property name="regionDAO" ref="regionDAO"></property>
+		<property name="departmentDAO" ref="departmentDAO"></property>
+		<property name="positionDAO" ref="positionDAO"></property>
+	</bean>
+	
+	<bean name="/employeeupdate.action" class="com.test.mvc.EmployeeUpdateController">
+		<property name="employeeDAO" ref="employeeDAO"></property>
+	</bean>
+	
+	<bean name="/employeedelete.action" class="com.test.mvc.EmployeeDeleteController">
+		<property name="employeeDAO" ref="employeeDAO"></property>
+	</bean>
+	
+	
+	<!-- Region 관련 컨트롤러 등록 -->
+	<bean name="/regionlist.action" class="com.test.mvc.RegionListController">
+		<property name="dao" ref="regionDAO"></property>
+	</bean>
+	
+	<bean name="/regioninsertform.action" class="com.test.mvc.RegionInsertFormController">
+		<property name="dao" ref="regionDAO"></property>
+	</bean>
+	
+	<bean name="/regioninsert.action" class="com.test.mvc.RegionInsertController">
+		<property name="dao" ref="regionDAO"></property>
+	</bean>
+	
+	<bean name="/regionupdateform.action" class="com.test.mvc.RegionUpdateFormController">
+		<property name="dao" ref="regionDAO"></property>
+	</bean>
 
 </beans>
