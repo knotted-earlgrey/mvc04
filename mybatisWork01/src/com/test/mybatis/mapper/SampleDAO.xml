@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.test.mybatis.ISampleDAO">
+	<!-- 해당 인터페이스(ISampleDAO)의 각각 메소드에 어떤 쿼리문(sql)을 매칭시켜줄지 -->
+</mapper>
